@@ -22,6 +22,10 @@ jobs:
 
       - name: Render Helm Chart
         run: helm template redis-api-demo charts/redis-api-demo
+      - name: Debug SSH_KEY and EC2_HOST
+        run: |
+          echo "SSH_KEY Length: ${#SSH_KEY}"
+          echo "EC2_HOST: $EC2_HOST"
 
       - name: Set up SSH
         run: |
