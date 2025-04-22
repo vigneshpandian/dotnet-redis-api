@@ -1,0 +1,13 @@
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\RedisApiDemo
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\appsettings.Development.json
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\appsettings.json
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\RedisApiDemo.dll
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\RedisApiDemo.deps.json
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\RedisApiDemo.runtimeconfig.json
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\RedisApiDemo.pdb
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\Pipelines.Sockets.Unofficial.dll
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\StackExchange.Redis.dll
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\RH1150\Learnings\RedisApiDemo\RedisApiDemo\obj\Release\net8.0\linux-x64\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
