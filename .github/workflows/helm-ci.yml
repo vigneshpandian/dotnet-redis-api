@@ -9,7 +9,13 @@ on:
 jobs:
   helm-deploy:
     runs-on: ubuntu-latest
-
+    env:
+      EC2_USER: ec2-user  # or 'ubuntu', depending on your AMI
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      HELM_RELEASE: dotnet-api
+      NAMESPACE: git-demo
+      CHART_PATH: ./charts/redis-api-demo  # path to your chart inside the repo
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
