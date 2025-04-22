@@ -1,0 +1,34 @@
+name: Helm CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  helm-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v3
+
+      - name: Helm Lint
+        run: helm lint charts/redis-api-demo
+
+      - name: Render Helm Chart
+        run: helm template redis-api-demo charts/redis-api
+
+      # Optional deploy step if you have K8s access
+      # - name: Set up Kubeconfig
+      #   run: |
+      #     mkdir -p ~/.kube
+      #     echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+
+      # - name: Helm Upgrade
+      #   run: helm upgrade --install redis-api charts/redis-api \
+      #         --set image.tag=${{ github.sha }}
