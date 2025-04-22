@@ -21,7 +21,7 @@ jobs:
         run: helm lint charts/redis-api-demo
 
       - name: Render Helm Chart
-        run: helm template redis-api-demo charts/redis-api
+        run: helm template redis-api-demo charts/redis-api-demo
 
       # Optional deploy step if you have K8s access
       # - name: Set up Kubeconfig
