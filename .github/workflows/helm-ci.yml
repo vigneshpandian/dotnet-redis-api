@@ -42,6 +42,10 @@ jobs:
           ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
           set +x
 
+      - name: Clean remote chart directory
+        run: |
+          ssh $EC2_USER@$EC2_HOST "rm -rf /tmp/chart"
+
       - name: Copy Helm chart to EC2
         run: |
           scp -r $CHART_PATH $EC2_USER@$EC2_HOST:/tmp/chart
