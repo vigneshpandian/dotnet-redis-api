@@ -46,7 +46,7 @@ spec:
             - name: Redis__ConnectionString
               valueFrom:
                 secretKeyRef:
-                  name: redis-connection-secret-1
+                  name: redis-connection-secret
                   key: redisConnectionString
           ports:
             - name: http
