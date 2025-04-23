@@ -56,5 +56,5 @@ jobs:
             minikube status || minikube start
 
             helm upgrade --install $HELM_RELEASE /tmp/chart \
-              --namespace $NAMESPACE --create-namespace
+              --namespace $NAMESPACE --create-namespace -f /tmp/chart/values.yaml
           EOF
