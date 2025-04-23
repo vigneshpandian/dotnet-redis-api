@@ -9,7 +9,13 @@ on:
 jobs:
   helm-deploy:
     runs-on: ubuntu-latest
-
+    env:
+      EC2_USER: ec2-user  # or 'ubuntu', depending on your AMI
+      EC2_HOST: ${{ secrets.EC2_HOST }}
+      SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      HELM_RELEASE: dotnet-api
+      NAMESPACE: git-demo
+      CHART_PATH: ./charts/redis-api-demo  # path to your chart inside the repo
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -22,13 +28,29 @@ jobs:
 
       - name: Render Helm Chart
         run: helm template redis-api-demo charts/redis-api-demo
+      - name: Debug SSH_KEY and EC2_HOST
+        run: |
+          echo "SSH_KEY Length: ${#SSH_KEY}"
+          echo "EC2_HOST: $EC2_HOST"
 
-      # Optional deploy step if you have K8s access
-      # - name: Set up Kubeconfig
-      #   run: |
-      #     mkdir -p ~/.kube
-      #     echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+      - name: Set up SSH
+        run: |
+          set -x
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$EC2_HOST" >> ~/.ssh/known_hosts
+          set +x
 
-      # - name: Helm Upgrade
-      #   run: helm upgrade --install redis-api charts/redis-api \
-      #         --set image.tag=${{ github.sha }}
+      - name: Copy Helm chart to EC2
+        run: |
+          scp -r $CHART_PATH $EC2_USER@$EC2_HOST:/tmp/chart
+
+      - name: Deploy Helm chart from EC2
+        run: |
+          ssh $EC2_USER@$EC2_HOST <<EOF
+            minikube status || minikube start
+
+            helm upgrade --install $HELM_RELEASE /tmp/chart \
+              --namespace $NAMESPACE --create-namespace
+          EOF
