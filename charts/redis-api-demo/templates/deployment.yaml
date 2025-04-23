@@ -40,12 +40,7 @@ spec:
           {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: Redis__ConnectionString
-              valueFrom:
-                secretKeyRef:
-                  name: redis-connection-secret
-                  key: redisConnectionString-1
+        
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
