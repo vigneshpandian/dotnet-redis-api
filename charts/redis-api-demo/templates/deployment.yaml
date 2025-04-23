@@ -43,6 +43,11 @@ spec:
           env:
             - name: Redis__ConnectionString
               value: "{{ .Values.redis.connectionString }}"
+            - name: REDIS_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: redis-connection-secret
+                  key: redisConnectionString
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
