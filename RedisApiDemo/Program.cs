@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using StackExchange.Redis;
 using System.Text.Json;
 
@@ -12,7 +13,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddHealthChecks();
+builder.Services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy(), tags: new[] { "ready" });
 builder.Services.AddHealthChecks().AddRedis(builder.Configuration.GetValue<string>("Redis:ConnectionString"), name: "redis");
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
@@ -36,9 +37,14 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHealthChecks("/healthz");
 
-app.MapHealthChecks("/redis-health", new HealthCheckOptions
+
+app.MapHealthChecks("/ready", new HealthCheckOptions
+{
+    Predicate = (check) => check.Tags.Contains("ready")
+});
+
+app.MapHealthChecks("/healthz", new HealthCheckOptions
 {
     Predicate = check => check.Name == "redis",
     ResponseWriter = async (context, report) =>
