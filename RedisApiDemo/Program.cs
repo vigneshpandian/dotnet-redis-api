@@ -8,18 +8,19 @@ using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+string redisConnectionString = $"{builder.Configuration.GetValue<string>("Redis:Host")},password={builder.Configuration.GetValue<string>("Redis:Password")}";
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks().AddCheck("self", () => HealthCheckResult.Healthy(), tags: new[] { "ready" });
-builder.Services.AddHealthChecks().AddRedis(builder.Configuration.GetValue<string>("Redis:ConnectionString"), name: "redis");
+builder.Services.AddHealthChecks().AddRedis(redisConnectionString, name: "redis");
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
-    var configuration = builder.Configuration.GetValue<string>("Redis:ConnectionString");
+    
 
-    return ConnectionMultiplexer.Connect(configuration);
+    return ConnectionMultiplexer.Connect(redisConnectionString);
 });
 
 var app = builder.Build();
