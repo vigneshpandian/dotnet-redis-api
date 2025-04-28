@@ -25,7 +25,8 @@ redis:
   fullnameOverride: cache-server
   connectionString: "cache-server-master:6379" # Redis connection string
   auth:
-    enabled: false
+    enabled: true
+    password: "test" # Redis password
 
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
